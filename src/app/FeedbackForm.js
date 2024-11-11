@@ -2,17 +2,21 @@ import { useState } from 'react';
 
 export default function FeedbackForm() {
   const [isSent, setIsSent] = useState(false);
+  const [message, setMessage] = useState('');
+  
+  function handleSubmit(e) {
+    e.preventDefault();
+    alert(`Enviando: "${message}"`);
+    setIsSent(true);
+  }
+
+  let view;
   if (isSent) {
-    return <h1>¡Gracias!</h1>;
-  } else {
-    // eslint-disable-next-line
-    const [message, setMessage] = useState('');
-    return (
-      <form onSubmit={e => {
-        e.preventDefault();
-        alert(`Enviando: "${message}"`);
-        setIsSent(true);
-      }}>
+    view = <h1>¡Gracias!</h1>;
+  }
+  else {
+    view =  (
+      <form onSubmit={handleSubmit}>
         <textarea
           placeholder="Mensaje"
           value={message}
@@ -23,4 +27,5 @@ export default function FeedbackForm() {
       </form>
     );
   }
+  return(view)
 }
